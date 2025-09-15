@@ -20,6 +20,18 @@ function updateDate() {
     gazaDateElement.innerHTML = gazaDate.format("MMMM Do YYYY");
     gazaTimeElement.innerHTML = gazaDate.format("h:mm:ss [<small>]A[</small>]");
   }
+
+  //Montreal
+  let montrealElement = document.querySelector("#montreal");
+  if (montrealElement) {
+    let montrealDateElement = montrealElement.querySelector(".date");
+    let montrealTimeElement = montrealElement.querySelector(".time");
+    let montrealDate = moment().tz("America/Montreal");
+    montrealDateElement.innerHTML = montrealDate.format("MMMM Do YYYY");
+    montrealTimeElement.innerHTML = montrealDate.format(
+      "h:mm:ss [<small>]A[</small>]"
+    );
+  }
 }
 
 function updateCity(event) {
@@ -28,7 +40,7 @@ function updateCity(event) {
     cityTimeZone = moment.tz.guess();
   }
 
-  let cityName = cityTimeZone.replace("_", " ").split("/")[1];
+  let cityName = cityTimeZone.replaceAll("_", " ").split("/")[1];
   let cityTime = moment().tz(cityTimeZone);
   let citiesElement = document.querySelector("#cities");
   citiesElement.innerHTML = `
@@ -39,8 +51,10 @@ function updateCity(event) {
           </div>
           <div class="time">${cityTime.format(
             "h:mm:ss"
-          )} <small>${cityTime.format("A")}</small></div>
-        </div> <a href="/">All cities</a>`;
+          )} <small>${cityTime.format("A")}</small>
+          </div>
+        </div> 
+        <a href="/">All cities</a>`;
 }
 
 updateDate();
